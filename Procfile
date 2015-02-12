@@ -1,1 +1,1 @@
-web: bin/hubot -a slack -n Hodor
+web: bin/hubot -a slack -n hodor
