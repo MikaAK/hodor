@@ -10,4 +10,4 @@ module.exports = (robot) ->
     robot.http('https://api.instagram.com/v1/users/52333855/media/recent/?access_token=#{igKey}')
       .get() (err, res, body) ->
         jsonBody = JSON.parse(body)
-        msg.send msg.random(jsonBody.data).images.standard_resolution.url
+        msg.send require('lodash').sample(jsonBody.data).images.standard_resolution.url
