@@ -163,6 +163,8 @@ MMPhraseGenerator =
     'channel'
     'circle'
     'creator'
+    'standup'
+    'today'
     'creature'
     'education'
     'faucet'
@@ -585,10 +587,9 @@ getPosibilites  = () ->
 getPhrases      = () ->
   allPhrases = ''
   selectWords = []
-  allPhrases += ' ' + MMPhraseGenerator.phrase() for [0..10]
+  allPhrases += ' ' + MMPhraseGenerator.phrase() for [0..20]
   selectWords = allPhrases.split(' ').filter (word) -> word.length > 5
   selectWords.push 'coco'
-  console.log(selectWords)
   return selectWords
 
 getPosibilites()
@@ -600,6 +601,5 @@ setInterval getPhrases, 3600000
 module.exports = (robot) ->
   sayHodor = (msg) ->
     msg.send msg.random hodorPossibilites
-
 
   robot.hear new RegExp(word, 'i'), sayHodor for word in selectWords
