@@ -1,5 +1,6 @@
 # Description: HODOR. Randomly say hodor when words are called
 #
+_ = require('lodash')
 
 MMPhraseGenerator =
   phrase: ->
@@ -590,7 +591,7 @@ getPhrases      = () ->
   allPhrases += ' ' + MMPhraseGenerator.phrase() for [0..20]
   selectWords = allPhrases.split(' ').filter (word) -> word.length > 5
   selectWords.push 'coco'
-  return selectWords
+  return _.uniq(selectWords)
 
 getPosibilites()
 getPhrases()
