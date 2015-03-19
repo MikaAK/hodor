@@ -588,7 +588,7 @@ getPosibilites  = () ->
 getPhrases      = () ->
   allPhrases = ''
   selectWords = []
-  allPhrases += ' ' + MMPhraseGenerator.phrase() for [0..20]
+  allPhrases += ' ' + MMPhraseGenerator.phrase() for [0..10]
   selectWords = allPhrases.split(' ').filter (word) -> word.length > 5
   selectWords.push 'coco'
   return _.uniq(selectWords)
