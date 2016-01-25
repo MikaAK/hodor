@@ -1,16 +1,26 @@
-location = '49.2830210,-123.1067440'
-timeZone = '-480'
+path = require('path')
+_ = require('lodash')
+AI = require('apiai')
+
+opts = {
+  lang: 'en',
+  timezone: 'America/Vancouver'
+}
+
+if (process.env.NODE_ENV == 'development')
+  require('dotenv').load({path: path.resolve(__dirname, '../.env')})
+
+bot = AI(process.env.AI_AUTH_KEY, process.env.AI_SUB_KEY)
 
 module.exports = (robot) ->
-  robot.respond /assist/i, (msg) ->
-    messageText = msg.message.text.split(' ').filter((word) -> word != 'hodor').join(' ')
-    data =
-      input:    messageText
-      location: location
-      timeZone: timeZone
+  makeQuery = (query, msg) ->
+    request = bot.textRequest(query.trim())
+    request.on 'response', (res) ->
+      console.log(res.result)
+      msg.send(res.result.fulfillment.speech)
+    request.on 'error', (err) -> msg.send('There was an error!', err)
+    request.end()
 
-    robot.http('https://jeannie.p.mashape.com/api')
-      .get(data) (err, res, body) ->
-        console.log 'hi'
-        # jsonBody = JSON.parse(body)
-        # msg.send jsonBody.output.actions.say.text
+  robot.respond /check/i, (msg) ->
+    makeQuery(msg.message.text, msg)
+
