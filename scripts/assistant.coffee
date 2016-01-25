@@ -32,6 +32,6 @@ module.exports = (robot) ->
     request.on 'error', (err) -> msg.send('There was an error!', err)
     request.end()
 
-  robot.respond /check/i, (msg) ->
+  robot.respond /(check|what|search|lookup|define|how|who|what)/i, (msg) ->
     makeQuery(msg.message.text, msg)
 
